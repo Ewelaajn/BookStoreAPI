@@ -20,6 +20,7 @@ namespace BookStoreAPI.Api
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
+                    webBuilder.UseKestrel(o => o.ListenLocalhost(6543));
                     webBuilder.UseStartup<Startup>();
                 });
     }
