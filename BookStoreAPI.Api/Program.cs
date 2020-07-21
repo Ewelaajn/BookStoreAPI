@@ -13,15 +13,25 @@ namespace BookStoreAPI.Api
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
-        }
+            try
+            {
+                CreateHostBuilder(args).Build().Run();
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+                throw;
+            }
+        }  
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
+        public static IHostBuilder CreateHostBuilder(string[] args)
+        {
+            return Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseKestrel(o => o.ListenLocalhost(6543));
                     webBuilder.UseStartup<Startup>();
+                    webBuilder.UseKestrel(o => o.ListenLocalhost(8000));
                 });
+        }
     }
 }

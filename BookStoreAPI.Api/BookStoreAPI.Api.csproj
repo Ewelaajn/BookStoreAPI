@@ -2,7 +2,13 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <OutputType>WinExe</OutputType>
+    <StartupObject>BookStoreAPI.Api.Program</StartupObject>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BookStoreAPI.Repositories\BookStoreAPI.Repositories.csproj" />
+  </ItemGroup>
 
 
 </Project>
