@@ -31,6 +31,9 @@ namespace BookStoreAPI.Api
                 {
                     webBuilder.UseStartup<Startup>();
                     webBuilder.UseKestrel(o => o.ListenLocalhost(8000));
+                }).ConfigureAppConfiguration((hostContext, config) =>
+                {
+                    config.AddJsonFile("appsettings.json", false);
                 });
         }
     }

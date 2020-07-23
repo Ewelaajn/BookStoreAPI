@@ -1,30 +1,62 @@
-﻿using BookStoreAPI.Repositories.Models;
-using BookStoreAPI.Repositories.Repositories;
+﻿using BookStoreAPI.Services.Interfaces;
+using BookStoreAPI.Services.Models_DTO;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net.Mime;
-
+using System.Security.AccessControl;
 
 namespace BookStoreAPI.Api.Controllers
 {
     [Produces(MediaTypeNames.Application.Json)]
     public class BookController : ApiControllerBase
     {
-        private readonly BookRepository _bookRepository;
-        public BookController()
+        private readonly IBookService _bookService;
+        public BookController(IBookService bookService)
         {
-            _bookRepository = new BookRepository();
+            _bookService = bookService;
         }
         [HttpGet]
+        [ProducesResponseType(statusCode: StatusCodes.Status200OK, type: typeof(IEnumerable<BookDto>))]
+        [ProducesResponseType(statusCode: StatusCodes.Status204NoContent)]
         public IActionResult GetAllBooks()
         {
-            var books = _bookRepository.GetAllBooks();
-            return Json(books);
+            var booksDto = _bookService.GetAllBooks();
+
+            if(booksDto.Any())
+            {
+                return Ok(booksDto);
+            }
+
+            return NoContent();
+            
         }
         [HttpPost]
-        public IActionResult CreateNewBook([FromBody] Book book)
+        [ProducesResponseType(statusCode: StatusCodes.Status201Created, type: typeof(BookDto))]
+        [ProducesResponseType(statusCode: StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(statusCode: StatusCodes.Status409Conflict)]
+        public IActionResult CreateNewBook([FromBody] BookDto book)
         {
-            var newBook = _bookRepository.CreateBook(book);
-            return Json(newBook);
+            try
+            {
+                var bookDto = _bookService.CreateBook(book);
+
+                if(bookDto == null)
+                {
+                    return BadRequest();
+                }
+
+                return Created("/", bookDto);
+            }
+
+            catch(Exception ex)
+            {
+                throw;
+            }
+            return Ok();
         }
     }
 }
