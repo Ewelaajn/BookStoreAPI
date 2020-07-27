@@ -7,6 +7,6 @@ namespace BookStoreAPI.Repositories.DbConnection
 {
     public interface IDb
     {
-        NpgsqlConnection Connect();
+        NpgsqlConnection Connection { get; }
     }
 }

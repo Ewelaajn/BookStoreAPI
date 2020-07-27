@@ -16,9 +16,6 @@ namespace BookStoreAPI.Repositories.Db
         {
             _dbSettings = dbSettings.Value;
         }
-        public NpgsqlConnection Connect()
-        {
-            return new NpgsqlConnection(_dbSettings.ConnectionString);
-        }
+        public NpgsqlConnection Connection => new NpgsqlConnection(_dbSettings.ConnectionString);
     }
 }

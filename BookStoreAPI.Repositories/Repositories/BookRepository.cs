@@ -19,18 +19,18 @@ namespace BookStoreAPI.Repositories.Repositories
         }
         public IEnumerable<Book> GetAllBooks()
         {
-            var resultConnectionBook =_db.Connect().Query<Book>("SELECT id AS Id, title AS Title, author_id AS AuthorId, price AS Price FROM shop.book");
+            var resultConnectionBook =_db.Connection.Query<Book>("SELECT id AS Id, title AS Title, author_id AS AuthorId, price AS Price FROM shop.book");
             return resultConnectionBook;
         }
 
         public Book CreateBook(Book book)
         {
-            var insertedId = _db.Connect().QueryFirst<int>(@"
+            var insertedId = _db.Connection.QueryFirst<int>(@"
                 INSERT INTO shop.book (title, author_id, price)
                 VALUES (@Title, @AuthorId, @Price) RETURNING id
             ", new { book.Title, book.AuthorId, book.Price }
                 );
-            var newBook = _db.Connect().QueryFirst<Book>(
+            var newBook = _db.Connection.QueryFirst<Book>(
                 @"SELECT 
                         id AS Id, 
                         title AS Title,
