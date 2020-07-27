@@ -9,15 +9,17 @@ using BookStoreAPI.Services.Models_DTO;
 
 namespace BookStoreAPI.Services
 {
+    // Services map database logic to business logic
     public class BookService : IBookService
     {
         private readonly IBookRepository _bookRepository;
         private readonly IBookMapper _bookMapper;
+
+        // Iject repository and mapper using DI
         public BookService(IBookRepository bookRepository, IBookMapper bookMapper)
         {
             _bookRepository = bookRepository;
             _bookMapper = bookMapper;
-            
         }
         public IEnumerable<BookDto> GetAllBooks()
         {

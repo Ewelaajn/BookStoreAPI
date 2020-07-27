@@ -11,14 +11,19 @@ using System.Security.AccessControl;
 
 namespace BookStoreAPI.Api.Controllers
 {
-    [Produces(MediaTypeNames.Application.Json)]
+    // Controller found under api/book
+    [Produces(MediaTypeNames.Application.Json)] // Media type returned from controller
     public class BookController : ApiControllerBase
     {
         private readonly IBookService _bookService;
+        // Injecting services using DI
         public BookController(IBookService bookService)
         {
             _bookService = bookService;
         }
+
+        // Endpoint - does actuall work where called
+        // Can return json response + status code
         [HttpGet]
         [ProducesResponseType(statusCode: StatusCodes.Status200OK, type: typeof(IEnumerable<BookDto>))]
         [ProducesResponseType(statusCode: StatusCodes.Status204NoContent)]
@@ -34,6 +39,7 @@ namespace BookStoreAPI.Api.Controllers
             return NoContent();
             
         }
+
         [HttpPost]
         [ProducesResponseType(statusCode: StatusCodes.Status201Created, type: typeof(BookDto))]
         [ProducesResponseType(statusCode: StatusCodes.Status400BadRequest)]

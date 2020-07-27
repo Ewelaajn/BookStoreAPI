@@ -13,6 +13,8 @@ namespace BookStoreAPI.Api
     {
         public static void Main(string[] args)
         {
+            // entry point to application 
+            // host creation in try, catch to catch all errors
             try
             {
                 CreateHostBuilder(args).Build().Run();
@@ -29,10 +31,13 @@ namespace BookStoreAPI.Api
             return Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
+                    // declaring startup to use
                     webBuilder.UseStartup<Startup>();
+                    // declaring port to use by server
                     webBuilder.UseKestrel(o => o.ListenLocalhost(8000));
                 }).ConfigureAppConfiguration((hostContext, config) =>
                 {
+                    // adding external json configuration
                     config.AddJsonFile("appsettings.json", false);
                 });
         }
