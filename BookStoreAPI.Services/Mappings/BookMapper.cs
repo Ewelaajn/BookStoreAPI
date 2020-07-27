@@ -15,7 +15,7 @@ namespace BookStoreAPI.Services.Mappings
             return new BookDto
             {
                 Title = book.Title,
-                Author = "PLACEHOLDER",
+                Author = new AuthorDto(),
                 Price = book.Price
             };
         }
