@@ -24,7 +24,7 @@ namespace BookStoreAPI.Api.Controllers
         [ProducesResponseType(statusCode: StatusCodes.Status204NoContent)]
         public IActionResult GetAllBooks()
         {
-            var booksDto = _bookService.GetAllBooks();
+            IEnumerable<BookDto> booksDto = _bookService.GetAllBooks();
 
             if(booksDto.Any())
             {
@@ -46,7 +46,7 @@ namespace BookStoreAPI.Api.Controllers
 
                 if(bookDto == null)
                 {
-                    return BadRequest();
+                    return BadRequest("Author with those credentials does not exists!");
                 }
 
                 return Created("/", bookDto);
@@ -54,9 +54,9 @@ namespace BookStoreAPI.Api.Controllers
 
             catch(Exception ex)
             {
+                Console.WriteLine(ex);
                 throw;
             }
-            return Ok();
         }
     }
 }

@@ -8,7 +8,8 @@ namespace BookStoreAPI.Services.Mappings.Interfaces
 {
     public interface IBookMapper
     {
-        BookDto BookToDtoMapper(Book book);
-        Book DtoToBook(BookDto bookDto);
+        BookDto BookToDto(Book book, Author author);
+        Book DtoToBook(BookDto bookDto, int authorId);
+        IEnumerable<BookDto> BooksToDtos(IEnumerable<Book> books, IEnumerable<Author> authors);
     }
 }
