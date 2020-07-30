@@ -72,5 +72,16 @@ namespace BookStoreAPI.Repositories.Repositories
                new { ids }) ;
             return authors;
         }
+
+        public IEnumerable<Author> GetAllAuthors()
+        {
+            var authors = _db.Connection.Query<Author>(@"
+                SELECT id AS Id,
+                       first_name AS FirstName,
+                       last_name AS LastName
+                FROM   shop.author");
+
+            return authors;
+        }
     }
 }     

@@ -20,7 +20,7 @@ namespace BookStoreAPI.Api.Controllers
             _bookService = bookService;
         }
         [HttpGet]
-        [ProducesResponseType(statusCode: StatusCodes.Status200OK, type: typeof(IEnumerable<BookDto>))]
+        [ProducesResponseType(typeof(IEnumerable<BookDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(statusCode: StatusCodes.Status204NoContent)]
         public IActionResult GetAllBooks()
         {
@@ -35,7 +35,7 @@ namespace BookStoreAPI.Api.Controllers
             
         }
         [HttpPost]
-        [ProducesResponseType(statusCode: StatusCodes.Status201Created, type: typeof(BookDto))]
+        [ProducesResponseType(typeof(BookDto), StatusCodes.Status201Created)]
         [ProducesResponseType(statusCode: StatusCodes.Status400BadRequest)]
         [ProducesResponseType(statusCode: StatusCodes.Status409Conflict)]
         public IActionResult CreateNewBook([FromBody] BookDto book)

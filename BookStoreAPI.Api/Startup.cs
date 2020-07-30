@@ -41,6 +41,7 @@ namespace BookStoreAPI.Api
             services.AddScoped<IBookRepository, BookRepository>();
             services.AddScoped<IBookMapper, BookMapper>();
             services.AddScoped<IAuthorRepository, AuthorRepository>();
+            services.AddScoped<IAuthorService, AuthorService>();
 
             services.AddMvcCore(options =>
             {

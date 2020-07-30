@@ -7,4 +7,5 @@ public interface IAuthorRepository
     Author CreateAuthor(string firstName, string lastName);
     Author GetAuthorById(int authorId);
     IEnumerable<Author> GetAuthorsByIds(List<int> ids);
+    IEnumerable<Author> GetAllAuthors();
 }
