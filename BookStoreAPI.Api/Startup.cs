@@ -37,12 +37,11 @@ namespace BookStoreAPI.Api
             services.Configure<DbSettings>(Configuration.GetSection("DbSettings"));
 
             services.AddScoped<IDb, Db>();
-
             services.AddScoped<IBookService, BookService>();
-
             services.AddScoped<IBookRepository, BookRepository>();
-
             services.AddScoped<IBookMapper, BookMapper>();
+            services.AddScoped<IAuthorRepository, AuthorRepository>();
+            services.AddScoped<IAuthorService, AuthorService>();
 
             services.AddMvcCore(options =>
             {
