@@ -10,5 +10,6 @@ namespace BookStoreAPI.Services.Interfaces
         IEnumerable<BookDto> GetAllBooks();
 
         BookDto CreateBook(BookDto bookDto);
+        BookDto DeleteBook(string title);
     }
 }

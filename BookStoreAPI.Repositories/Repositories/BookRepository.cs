@@ -19,7 +19,13 @@ namespace BookStoreAPI.Repositories.Repositories
         }
         public IEnumerable<Book> GetAllBooks()
         {
-            var resultConnectionBook =_db.Connection.Query<Book>("SELECT id AS Id, title AS Title, author_id AS AuthorId, price AS Price FROM shop.book");
+            var resultConnectionBook =_db.Connection.Query<Book>(
+                @"SELECT 
+                        id AS Id, 
+                        title AS Title, 
+                        author_id AS AuthorId, 
+                        price AS Price 
+                    FROM shop.book");
             return resultConnectionBook;
         }
 
@@ -27,8 +33,8 @@ namespace BookStoreAPI.Repositories.Repositories
         {
             var insertedId = _db.Connection.QueryFirst<int>(@"
                 INSERT INTO shop.book (title, author_id, price)
-                VALUES (@Title, @AuthorId, @Price) RETURNING id
-            ", new { book.Title, book.AuthorId, book.Price }
+                VALUES (@Title, @AuthorId, @Price) RETURNING id",
+                new { book.Title, book.AuthorId, book.Price }
                 );
             var newBook = _db.Connection.QueryFirst<Book>(
                 @"SELECT 
@@ -38,10 +44,39 @@ namespace BookStoreAPI.Repositories.Repositories
                         price AS Price
                         FROM shop.book
                         WHERE id=@insertedId",
-                new { insertedId }
-                );
+                new { insertedId });
+            
             return newBook;
         }
 
+        public Book DeleteBook(Book book)
+        {
+            var deletedBook = _db.Connection.QueryFirstOrDefault<Book>(@"
+                DELETE FROM shop.book
+                WHERE title = @Title
+                RETURNING
+                         id AS Id, 
+                         title AS Title,
+                         author_id AS AuthorId,
+                         price AS Price",
+                        new { book.Title });
+
+            return deletedBook;
+        }
+
+        public Book GetBookByTitle(string title)
+        {
+            var bookByTitle = _db.Connection.QueryFirstOrDefault<Book>(@"
+                SELECT 
+                        id AS Id, 
+                        title AS Title,
+                        author_id AS AuthorId,
+                        price AS Price
+                        FROM shop.book
+                        WHERE title = @title",
+                        new {title});
+
+            return bookByTitle;
+        }
     }
 }

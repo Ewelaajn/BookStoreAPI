@@ -26,7 +26,7 @@ namespace BookStoreAPI.Services.Mappings
             return new BookDto
             {
                 Title = book.Title,
-                Author = new AuthorDto
+                AuthorDto = new AuthorDto
                 {
                     FirstName = author.FirstName,
                     LastName = author.LastName

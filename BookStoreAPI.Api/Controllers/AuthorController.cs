@@ -42,7 +42,7 @@ namespace BookStoreAPI.Api.Controllers
 
             if(author == null)
             {
-                return BadRequest("Cannot creat author, Author with those credentials probably exists.");
+                return BadRequest("Cannot create author, AuthorDto with those credentials probably exists.");
             }
             return Created("/", author);
         }

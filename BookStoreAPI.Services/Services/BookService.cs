@@ -30,7 +30,7 @@ namespace BookStoreAPI.Services
         }
         public BookDto CreateBook(BookDto bookDto)
         {
-            AuthorDto authorDto = bookDto.Author;
+            AuthorDto authorDto = bookDto.AuthorDto;
             Author author = _authorRepository.GetAuthor(authorDto.FirstName, authorDto.LastName);
 
             if(author == null)
@@ -40,7 +40,18 @@ namespace BookStoreAPI.Services
 
             Book bookToCreate = _bookMapper.DtoToBook(bookDto, author.Id);
             Book newBook = _bookRepository.CreateBook(bookToCreate);
+           
             return _bookMapper.BookToDto(newBook, author);
+        }
+        
+        public BookDto DeleteBook(string title)
+        {
+            Book bookByTitleToDelete = _bookRepository.GetBookByTitle(title);
+            int authorId = bookByTitleToDelete.AuthorId;
+            Author author = _authorRepository.GetAuthorById(authorId);
+            Book deletedBook = _bookRepository.DeleteBook(bookByTitleToDelete);
+
+            return _bookMapper.BookToDto(deletedBook, author);
         }
     }
 }

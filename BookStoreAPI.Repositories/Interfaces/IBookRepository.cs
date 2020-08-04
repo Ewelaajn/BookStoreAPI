@@ -9,6 +9,8 @@ namespace BookStoreAPI.Repositories.Interfaces
     {
        IEnumerable<Book> GetAllBooks();
        Book CreateBook(Book book);
-        
+       Book DeleteBook(Book book);
+       Book GetBookByTitle(string title);
+
     }
 }
