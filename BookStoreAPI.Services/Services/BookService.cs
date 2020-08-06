@@ -47,6 +47,12 @@ namespace BookStoreAPI.Services
         public BookDto DeleteBook(string title)
         {
             Book bookByTitleToDelete = _bookRepository.GetBookByTitle(title);
+
+            if (bookByTitleToDelete == null)
+            {
+                return null;
+            }
+
             int authorId = bookByTitleToDelete.AuthorId;
             Author author = _authorRepository.GetAuthorById(authorId);
             Book deletedBook = _bookRepository.DeleteBook(bookByTitleToDelete);

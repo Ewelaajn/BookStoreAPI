@@ -30,7 +30,7 @@ namespace BookStoreAPI.Api.Controllers
             {
                 return NoContent();
             }
-            return Ok(); 
+            return Ok(authors); 
         }
 
         [HttpPost]
@@ -42,7 +42,7 @@ namespace BookStoreAPI.Api.Controllers
 
             if(author == null)
             {
-                return BadRequest("Cannot create author, AuthorDto with those credentials probably exists.");
+                return BadRequest("Cannot create author, Author with those credentials probably exists.");
             }
             return Created("/", author);
         }

@@ -46,7 +46,7 @@ namespace BookStoreAPI.Api.Controllers
 
                 if(bookDto == null)
                 {
-                    return BadRequest("AuthorDto with those credentials does not exists!");
+                    return BadRequest("Author with those credentials does not exists!");
                 }
 
                 return Created("/", bookDto);
@@ -61,9 +61,14 @@ namespace BookStoreAPI.Api.Controllers
 
         [HttpDelete]
         [ProducesResponseType(typeof(BookDto), StatusCodes.Status200OK)]
-        public IActionResult DeleteBook([FromBody] BookDto book)
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult DeleteBook(string title)
         {
-            var deletedBook = _bookService.DeleteBook(book.Title);
+            var deletedBook = _bookService.DeleteBook(title);
+            if (deletedBook == null)
+            {
+                return NotFound("Book does not exist");
+            }
 
             return Ok(deletedBook);
         }
