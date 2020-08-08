@@ -29,6 +29,19 @@ namespace BookStoreAPI.Services
             return new AuthorDto { FirstName = newAuthor.FirstName, LastName = newAuthor.LastName };
         }
 
+        public AuthorDto DeleteAuthor(AuthorDto authorDto)
+        {
+            Author author = _authorRepository.GetAuthor(authorDto.FirstName, authorDto.LastName);
+            if (author == null)
+            {
+                return null;
+            }
+
+            var deletedAuthor = _authorRepository.DeleteAuthor(author.FirstName, author.LastName);
+
+            return new AuthorDto {FirstName = deletedAuthor.FirstName, LastName = deletedAuthor.LastName};
+        }
+
         public IEnumerable<AuthorDto> GetAllAuthors()
         {
             var authors = _authorRepository.GetAllAuthors();

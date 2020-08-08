@@ -10,5 +10,6 @@ namespace BookStoreAPI.Services.Interfaces
     {
         IEnumerable<AuthorDto> GetAllAuthors();
         AuthorDto CreateAuthor(AuthorDto authorDto);
+        AuthorDto DeleteAuthor(AuthorDto authorDto);
     }
 }

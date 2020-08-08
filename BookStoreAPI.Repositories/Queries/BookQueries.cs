@@ -18,7 +18,7 @@ namespace BookStoreAPI.Repositories.Queries
                 INSERT INTO shop.book (title, author_id, price)
                 VALUES (@Title, @AuthorId, @Price) RETURNING id";
 
-        public const string SelectBookById = @"SELECT 
+        public const string GetBookById = @"SELECT 
                         id AS Id, 
                         title AS Title,
                         author_id AS AuthorId,
@@ -26,8 +26,19 @@ namespace BookStoreAPI.Repositories.Queries
                         FROM shop.book
                         WHERE id=@id";
 
-        public const string SelectBookIdByTitle = @"
-                SELECT id FROM shop.book WHERE title = @title";
+        public const string GetBookIdByTitle = @"
+                SELECT id AS Id 
+                FROM shop.book 
+                WHERE title = @title";
+
+        public const string GetBookByAuthorId = @"
+                SELECT 
+                       id AS Id,
+                       title AS Title,
+                       author_id AS AuthorId,
+                       price AS Price
+                       FROM shop.book
+                       WHERE author_id = @author_id";
 
         public const string DeleteBookFromOrders = @"
                            DELETE FROM shop.order_book 
@@ -50,5 +61,13 @@ namespace BookStoreAPI.Repositories.Queries
                         price AS Price
                         FROM shop.book
                         WHERE title = @title";
+
+        public const string DeleteBookByAuthorId = @"
+                DELETE FROM shop.book
+                WHERE author_id = @author_id";
+
+        public const string DeleteBooksFromOrdersByIds = @"
+                DELETE FROM shop.order_book
+                WHERE  book_id = ANY(@book_id)";
     }
 }

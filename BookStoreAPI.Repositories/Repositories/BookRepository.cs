@@ -32,7 +32,7 @@ namespace BookStoreAPI.Repositories.Repositories
             var insertedId = _db.Connection.QueryFirst<int>
             (BookQueries.CreateBook, new { book.Title, book.AuthorId, book.Price });
             var newBook = _db.Connection.QueryFirst<Book>
-                ( BookQueries.SelectBookById,new {id = insertedId });
+                ( BookQueries.GetBookById,new {id = insertedId });
             
             return newBook;
         }
@@ -40,13 +40,14 @@ namespace BookStoreAPI.Repositories.Repositories
         public Book DeleteBook(Book book)
         {
             var connection = _db.Connection;
+            connection.Open();
 
-            using(var transaction = connection.BeginTransaction(IsolationLevel.ReadUncommitted))
+            using (var transaction = connection.BeginTransaction(IsolationLevel.ReadUncommitted))
             {
                 try
                 {
                     var idBookToDelete = _db.Connection.QueryFirst<int>
-                        (BookQueries.SelectBookIdByTitle,new {book.Title}, transaction);
+                        (BookQueries.GetBookIdByTitle,new {book.Title}, transaction);
 
                     _db.Connection.Execute
                         (BookQueries.DeleteBookFromOrders,new {book_id = idBookToDelete}, transaction);
@@ -64,8 +65,6 @@ namespace BookStoreAPI.Repositories.Repositories
                 }
                 
             }
-
-            return null;
         }
 
         public Book GetBookByTitle(string title)

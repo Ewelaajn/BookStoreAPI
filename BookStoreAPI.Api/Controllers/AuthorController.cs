@@ -13,7 +13,7 @@ namespace BookStoreAPI.Api.Controllers
     [Produces(MediaTypeNames.Application.Json)]
     public class AuthorController : ApiControllerBase
     {
-        private IAuthorService _authorService;
+        private readonly IAuthorService _authorService;
         public AuthorController(IAuthorService authorService)
         {
             _authorService = authorService;
@@ -38,7 +38,7 @@ namespace BookStoreAPI.Api.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult CreateAuthor([FromBody]AuthorDto authorDto)
         {
-            var author = _authorService.CreateAuthor(authorDto);
+            AuthorDto author = _authorService.CreateAuthor(authorDto);
 
             if(author == null)
             {
@@ -46,5 +46,20 @@ namespace BookStoreAPI.Api.Controllers
             }
             return Created("/", author);
         }
+
+        [HttpDelete]
+        [ProducesResponseType(typeof(AuthorDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult DeleteAuthor([FromBody] AuthorDto authorDto)
+        {
+            AuthorDto author = _authorService.DeleteAuthor(authorDto);
+            if (author == null)
+            {
+                return NotFound("Author does not exist.");
+            }
+
+            return Ok(author);
+        }
+
     }
 }

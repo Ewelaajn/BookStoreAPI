@@ -8,4 +8,5 @@ public interface IAuthorRepository
     Author GetAuthorById(int authorId);
     IEnumerable<Author> GetAuthorsByIds(List<int> ids);
     IEnumerable<Author> GetAllAuthors();
+    Author DeleteAuthor(string firstName, string lastName);
 }
