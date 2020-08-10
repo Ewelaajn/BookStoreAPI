@@ -83,7 +83,6 @@ namespace BookStoreAPI.Repositories.Repositories
                     transaction.Rollback();
                     throw;
                 }
-
         }
 
         public Author DeleteAuthor(string firstName, string lastName)

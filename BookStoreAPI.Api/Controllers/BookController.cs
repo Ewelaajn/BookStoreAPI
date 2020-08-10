@@ -1,13 +1,11 @@
-﻿using BookStoreAPI.Services.Interfaces;
-using BookStoreAPI.Services.ModelsDto;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mime;
-using System.Security.AccessControl;
+using BookStoreAPI.Services.Interfaces;
+using BookStoreAPI.Services.ModelsDto;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BookStoreAPI.Api.Controllers
 {
@@ -15,44 +13,40 @@ namespace BookStoreAPI.Api.Controllers
     public class BookController : ApiControllerBase
     {
         private readonly IBookService _bookService;
+
         public BookController(IBookService bookService)
         {
             _bookService = bookService;
         }
+
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<BookDto>), StatusCodes.Status200OK)]
-        [ProducesResponseType(statusCode: StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         public IActionResult GetAllBooks()
         {
-            IEnumerable<BookDto> booksDto = _bookService.GetAllBooks();
+            var booksDto = _bookService.GetAllBooks();
 
-            if(booksDto.Any())
-            {
-                return Ok(booksDto);
-            }
+            if (booksDto.Any()) return Ok(booksDto);
 
             return NoContent();
-            
         }
+
         [HttpPost]
         [ProducesResponseType(typeof(BookDto), StatusCodes.Status201Created)]
-        [ProducesResponseType(statusCode: StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(statusCode: StatusCodes.Status409Conflict)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
         public IActionResult CreateNewBook([FromBody] BookDto book)
         {
             try
             {
                 var bookDto = _bookService.CreateBook(book);
 
-                if(bookDto == null)
-                {
-                    return BadRequest("Author with those credentials does not exists!");
-                }
+                if (bookDto == null) return BadRequest("Author with those credentials does not exists!");
 
                 return Created("/", bookDto);
             }
 
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex);
                 throw;
@@ -65,10 +59,7 @@ namespace BookStoreAPI.Api.Controllers
         public IActionResult DeleteBook(string title)
         {
             var deletedBook = _bookService.DeleteBook(title);
-            if (deletedBook == null)
-            {
-                return NotFound("Book does not exist");
-            }
+            if (deletedBook == null) return NotFound("Book does not exist");
 
             return Ok(deletedBook);
         }

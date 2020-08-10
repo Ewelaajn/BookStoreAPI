@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Intrinsics;
-using System.Threading.Tasks;
 using BookStoreAPI.Repositories.Db;
 using BookStoreAPI.Repositories.DbConnection;
 using BookStoreAPI.Repositories.Interfaces;
@@ -14,12 +9,9 @@ using BookStoreAPI.Services.Mappings;
 using BookStoreAPI.Services.Mappings.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 
 namespace BookStoreAPI.Api
@@ -32,6 +24,7 @@ namespace BookStoreAPI.Api
         }
 
         public IConfiguration Configuration { get; }
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<DbSettings>(Configuration.GetSection("DbSettings"));
@@ -43,10 +36,8 @@ namespace BookStoreAPI.Api
             services.AddScoped<IAuthorRepository, AuthorRepository>();
             services.AddScoped<IAuthorService, AuthorService>();
 
-            services.AddMvcCore(options =>
-            {
-                options.EnableEndpointRouting = false;
-            }).AddApiExplorer().AddControllersAsServices();
+            services.AddMvcCore(options => { options.EnableEndpointRouting = false; }).AddApiExplorer()
+                .AddControllersAsServices();
 
             services.AddSwaggerGen(c =>
             {
@@ -55,25 +46,19 @@ namespace BookStoreAPI.Api
                     Title = "Book Store API",
                     Version = "0.0.1",
                     Description = "Api for buying books"
-
                 });
             });
-            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-
             if (env.IsDevelopment()) app.UseDeveloperExceptionPage();
 
             app.UseRouting();
 
-            app.UseEndpoints(e =>
-            {
-                e.MapControllers();
-            });
-           
+            app.UseEndpoints(e => { e.MapControllers(); });
+
             app.UseSwagger();
 
             app.UseSwaggerUI(c =>

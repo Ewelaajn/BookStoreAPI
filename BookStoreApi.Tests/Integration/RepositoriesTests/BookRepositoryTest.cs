@@ -4,6 +4,7 @@ using System.Text;
 using BookStoreAPI.Repositories.DbConnection;
 using BookStoreAPI.Repositories.Interfaces;
 using BookStoreAPI.Repositories.Repositories;
+using BookStoreApi.Tests.Integration.DbManager;
 using BookStoreApi.Tests.Integration.DbTools;
 using Dapper;
 using FluentAssertions;
@@ -16,34 +17,24 @@ namespace BookStoreApi.Tests.Integration.RepositoriesTests
     {
         private readonly IBookRepository _bookRepository;
         private readonly IDb _db;
+        private readonly DbManager.PostgresManager _postgresManager;
         public BookRepositoryTest()
         {
             _db = new TestDb();
             _bookRepository = new BookRepository(_db);
+            _postgresManager = new PostgresManager();
         }
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
-            Console.WriteLine("One time set up, runs before all tests.");
-        }
-
-        [OneTimeTearDown]
-        public void OneTimeTearDown()
-        {
-            Console.WriteLine("One time tear down, runs once after all tests.");
-        }
-
-        [SetUp]
-        public void SetUp()
-        {
-            Console.WriteLine("Set up, runs before every test.");
+            _postgresManager.SetUpSchema();
         }
 
         [TearDown]
         public void TearDown()
         {
-            Console.WriteLine("Tear down, runs after every test.");
+            _postgresManager.ResetSchema();
         }
 
         // testedMethodName_testCase_expectedResult 

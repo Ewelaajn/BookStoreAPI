@@ -10,13 +10,11 @@ namespace BookStoreApi.Tests.Integration.DbTools
 {
     public class TestDb : IDb
     {
-        private readonly IConfiguration _configuration;
-        private readonly string _connectionString;
+        private TestSettings Settings { get; }
         public TestDb()
         {
-            _configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
-            _connectionString = _configuration["DbSettings:ConnectionString"];
+            Settings = TestSettings.MapSettings();
         }
-        public NpgsqlConnection Connection => new NpgsqlConnection(_connectionString);
+        public NpgsqlConnection Connection => new NpgsqlConnection(Settings.DbSettings.ConnectionString);
     }
 }
