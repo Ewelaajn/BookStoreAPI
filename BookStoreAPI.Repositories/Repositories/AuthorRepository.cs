@@ -19,6 +19,17 @@ namespace BookStoreAPI.Repositories.Repositories
             _db = db;
         }
 
+        public Author CreateAuthor(string firstName, string lastName)
+        {
+            int id = _db.Connection.QueryFirst<int>
+                (AuthorQueries.CreateAuthor, new { first_name = firstName, last_name = lastName });
+
+            var author = _db.Connection.QueryFirst<Author>
+                (AuthorQueries.GetAuthorById, new { id });
+
+            return author;
+        }
+
         public Author GetAuthor(string firstName, string lastName)
         {
             var author = _db.Connection.QueryFirstOrDefault<Author>
@@ -27,20 +38,8 @@ namespace BookStoreAPI.Repositories.Repositories
             return author;
         }
 
-        public Author CreateAuthor(string firstName, string lastName)
-        {
-            int id = _db.Connection.QueryFirst<int>
-            (AuthorQueries.CreateAuthor, new { first_name = firstName, last_name = lastName });
-
-            var author = _db.Connection.QueryFirst<Author>
-            (AuthorQueries.GetAuthorById, new { id });
-            
-            return author;
-        }
-
         public Author GetAuthorById(int authorId)
         {
-         
             var author = _db.Connection.QueryFirst<Author>
             (AuthorQueries.GetAuthorById, new {id = authorId });
 
@@ -63,6 +62,30 @@ namespace BookStoreAPI.Repositories.Repositories
             return authors;
         }
 
+        public Author UpdateAuthor(string currentFirstName, string currentLastName, 
+                                   string newFirstName, string newLastName)
+        {
+            var connection = _db.Connection;
+            connection.Open();
+
+            using(var transaction = connection.BeginTransaction(IsolationLevel.ReadUncommitted))
+                try
+                {
+                    var updatedAuthor = _db.Connection.QueryFirstOrDefault<Author>
+                    (AuthorQueries.UpdateAuthor,
+                        new {currentFirstName, currentLastName, newFirstName, newLastName}, transaction);
+
+                    transaction.Commit();
+                    return updatedAuthor;
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    throw;
+                }
+
+        }
+
         public Author DeleteAuthor(string firstName, string lastName)
         {
             var connection = _db.Connection;
@@ -80,11 +103,11 @@ namespace BookStoreAPI.Repositories.Repositories
                         (BookQueries.GetBookByAuthorId, 
                         new {author_id = author.Id}, transaction).ToList();
 
-                    var bookIds = books.Select(bookId => bookId.Id).ToList();
+                    var booksIds = books.Select(bookId => bookId.Id).ToList();
 
                     _db.Connection.Execute
                     (BookQueries.DeleteBooksFromOrdersByIds, 
-                        new {book_id = bookIds}, transaction);
+                        new {book_id = booksIds}, transaction);
 
                     _db.Connection.Execute
                         (BookQueries.DeleteBookByAuthorId, new {author_id = author.Id}, transaction);

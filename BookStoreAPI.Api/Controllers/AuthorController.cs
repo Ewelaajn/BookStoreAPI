@@ -4,7 +4,7 @@ using System.Linq;
 using System.Net.Mime;
 using System.Threading.Tasks;
 using BookStoreAPI.Services.Interfaces;
-using BookStoreAPI.Services.Models_DTO;
+using BookStoreAPI.Services.ModelsDto;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -47,6 +47,21 @@ namespace BookStoreAPI.Api.Controllers
             return Created("/", author);
         }
 
+        [HttpPut]
+        [ProducesResponseType(typeof(AuthorDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult UpdateAuthor([FromBody] UpdateAuthorDto updateAuthorDto)
+        {
+            AuthorDto updateAuthor = _authorService.UpdateAuthor(updateAuthorDto);
+
+            if (updateAuthor == null)
+            {
+                return NotFound("Author with those credentials does not exist.");
+            }
+
+            return Ok(updateAuthor);
+        }
+
         [HttpDelete]
         [ProducesResponseType(typeof(AuthorDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -55,7 +70,7 @@ namespace BookStoreAPI.Api.Controllers
             AuthorDto author = _authorService.DeleteAuthor(authorDto);
             if (author == null)
             {
-                return NotFound("Author does not exist.");
+                return NotFound("Author with those credentials does not exist.");
             }
 
             return Ok(author);

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace BookStoreAPI.Services.Models_DTO
+namespace BookStoreAPI.Services.ModelsDto
 {
     public class BookDto
     {

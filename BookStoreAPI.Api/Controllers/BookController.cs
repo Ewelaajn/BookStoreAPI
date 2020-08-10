@@ -1,5 +1,5 @@
 ﻿using BookStoreAPI.Services.Interfaces;
-using BookStoreAPI.Services.Models_DTO;
+using BookStoreAPI.Services.ModelsDto;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;

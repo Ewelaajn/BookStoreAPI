@@ -7,10 +7,9 @@ namespace BookStoreAPI.Repositories.Interfaces
 {
     public interface IBookRepository
     {
-       IEnumerable<Book> GetAllBooks();
-       Book CreateBook(Book book);
-       Book DeleteBook(Book book);
-       Book GetBookByTitle(string title);
-
+        Book CreateBook(Book book);
+        Book GetBookByTitle(string title);
+        IEnumerable<Book> GetAllBooks();
+        Book DeleteBook(Book book);
     }
 }

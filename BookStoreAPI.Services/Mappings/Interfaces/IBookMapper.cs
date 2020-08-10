@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using BookStoreAPI.Repositories.Models;
-using BookStoreAPI.Services.Models_DTO;
+using BookStoreAPI.Services.ModelsDto;
 
 namespace BookStoreAPI.Services.Mappings.Interfaces
 {

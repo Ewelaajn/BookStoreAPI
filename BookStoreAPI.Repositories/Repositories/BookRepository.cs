@@ -22,7 +22,7 @@ namespace BookStoreAPI.Repositories.Repositories
         public IEnumerable<Book> GetAllBooks()
         {
             var resultConnectionBook =_db.Connection.Query<Book>
-                (BookQueries.GetAllBook);
+                (BookQueries.GetAllBooks);
 
             return resultConnectionBook;
         }
@@ -46,11 +46,8 @@ namespace BookStoreAPI.Repositories.Repositories
             {
                 try
                 {
-                    var idBookToDelete = _db.Connection.QueryFirst<int>
-                        (BookQueries.GetBookIdByTitle,new {book.Title}, transaction);
-
                     _db.Connection.Execute
-                        (BookQueries.DeleteBookFromOrders,new {book_id = idBookToDelete}, transaction);
+                        (BookQueries.DeleteBookFromOrders,new {book_id = book.Id}, transaction);
 
                     var deletedBook = _db.Connection.QueryFirstOrDefault<Book>
                     (BookQueries.DeleteBookByTitle,new {book.Title}, transaction);
@@ -63,7 +60,6 @@ namespace BookStoreAPI.Repositories.Repositories
                     transaction.Rollback();
                     throw;
                 }
-                
             }
         }
 

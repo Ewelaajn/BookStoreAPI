@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using BookStoreAPI.Repositories.Models;
 using BookStoreAPI.Services.Mappings.Interfaces;
-using BookStoreAPI.Services.Models_DTO;
+using BookStoreAPI.Services.ModelsDto;
 
 
 namespace BookStoreAPI.Services.Mappings

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using BookStoreAPI.Repositories.Models;
-using BookStoreAPI.Services.Models_DTO;
+using BookStoreAPI.Services.ModelsDto;
 
 namespace BookStoreAPI.Services.Interfaces
 {
@@ -10,6 +10,7 @@ namespace BookStoreAPI.Services.Interfaces
     {
         IEnumerable<AuthorDto> GetAllAuthors();
         AuthorDto CreateAuthor(AuthorDto authorDto);
+        AuthorDto UpdateAuthor(UpdateAuthorDto updateAuthorDto);
         AuthorDto DeleteAuthor(AuthorDto authorDto);
     }
 }
