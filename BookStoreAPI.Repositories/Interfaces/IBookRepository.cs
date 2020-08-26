@@ -10,6 +10,7 @@ namespace BookStoreAPI.Repositories.Interfaces
         Book CreateBook(Book book);
         Book GetBookByTitle(string title);
         IEnumerable<Book> GetAllBooks();
+        Book UpdateBook(string title, string newTitle, int newAuthorId, decimal newPrice);
         Book DeleteBook(Book book);
     }
 }

@@ -25,6 +25,7 @@ namespace BookStoreApi.Tests.Integration.RepositoriesTests
             _postgresManager = new PostgresManager();
         }
 
+
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {

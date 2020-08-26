@@ -44,6 +44,20 @@ namespace BookStoreAPI.Repositories.Queries
                         price AS Price 
                     FROM shop.book";
 
+        public const string UpdateBook = @"
+                UPDATE shop.book
+                SET
+                    title = @newTitle,
+                    author_id = @newAuthorId,
+                    price = @newPrice
+                WHERE 
+                    title = @title
+                RETURNING 
+                    id AS Id, 
+                    title AS Title, 
+                    author_id AS AuthorId, 
+                    price AS Price";
+
         public const string DeleteBookByTitle = @"
                 DELETE FROM shop.book
                 WHERE title = @Title

@@ -33,8 +33,4 @@
     <ProjectReference Include="..\BookStoreAPI.Repositories\BookStoreAPI.Repositories.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Integration\TestDataQueries\" />
-  </ItemGroup>
-
 </Project>

@@ -7,6 +7,7 @@ using BookStoreAPI.Services;
 using BookStoreAPI.Services.Interfaces;
 using BookStoreAPI.Services.Mappings;
 using BookStoreAPI.Services.Mappings.Interfaces;
+using BookStoreAPI.Services.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;

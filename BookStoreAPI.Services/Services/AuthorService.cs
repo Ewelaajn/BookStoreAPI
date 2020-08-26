@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using BookStoreAPI.Repositories.Models;
 using BookStoreAPI.Services.Interfaces;
 using BookStoreAPI.Services.ModelsDto;
 
-namespace BookStoreAPI.Services
+namespace BookStoreAPI.Services.Services
 {
     public class AuthorService : IAuthorService
     {
@@ -25,6 +23,7 @@ namespace BookStoreAPI.Services
             }
 
             Author newAuthor = _authorRepository.CreateAuthor(authorDto.FirstName, authorDto.LastName);
+            
             return new AuthorDto { FirstName = newAuthor.FirstName, LastName = newAuthor.LastName };
         }
         public IEnumerable<AuthorDto> GetAllAuthors()
@@ -40,7 +39,7 @@ namespace BookStoreAPI.Services
         public AuthorDto UpdateAuthor(UpdateAuthorDto updateAuthorDto)
         {
             var updateAuthor = _authorRepository.UpdateAuthor
-                               (updateAuthorDto.CurrentFirstName, updateAuthorDto.CurrentLastName,
+                               (updateAuthorDto.AuthorDto.FirstName, updateAuthorDto.AuthorDto.LastName,
                                 updateAuthorDto.NewFirstName, updateAuthorDto.NewLastName);
 
             if (updateAuthor == null)

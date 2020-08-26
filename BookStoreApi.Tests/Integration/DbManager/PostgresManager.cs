@@ -12,9 +12,9 @@ namespace BookStoreApi.Tests.Integration.DbManager
     public class PostgresManager
     {
         private TestSettings Settings { get; }
-        private string _baseConnectionString;
-        private string _postgresConnectionString;
-        private string _testDatabaseConnectionString;
+        private readonly string _baseConnectionString;
+        private readonly string _postgresConnectionString;
+        private readonly string _testDatabaseConnectionString;
         private string _schema;
         private readonly string _host;
         private readonly string _db;

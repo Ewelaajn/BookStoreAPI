@@ -36,12 +36,31 @@ namespace BookStoreAPI.Services
 
             return _bookMapper.BookToDto(newBook, author);
         }
+
         public IEnumerable<BookDto> GetAllBooks()
         {
             var books = _bookRepository.GetAllBooks().ToList();
             var authorsIds = books.Select(book => book.AuthorId).ToList();
             var authors = _authorRepository.GetAuthorsByIds(authorsIds).ToList();
             return _bookMapper.BooksToDtos(books, authors);
+        }
+
+        public BookDto UpdateBook(UpdateBookDto updateBookDto)
+        {
+            var author = _authorRepository.GetAuthor
+                (updateBookDto.NewAuthorDto.FirstName, updateBookDto.NewAuthorDto.LastName);
+
+            var book = _bookRepository.GetBookByTitle(updateBookDto.CurrentTitle);
+
+            if (book == null || author == null)
+            {
+                return null;
+            }
+
+            var updatedBook = _bookRepository.UpdateBook
+                (updateBookDto.CurrentTitle, updateBookDto.NewTitle, author.Id, updateBookDto.NewPrice);
+
+            return _bookMapper.BookToDto(updatedBook, author);
         }
 
         public BookDto DeleteBook(string title)

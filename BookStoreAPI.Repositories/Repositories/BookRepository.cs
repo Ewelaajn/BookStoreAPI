@@ -27,6 +27,14 @@ namespace BookStoreAPI.Repositories.Repositories
             return resultConnectionBook;
         }
 
+        public Book GetBookByTitle(string title)
+        {
+            var bookByTitle = _db.Connection.QueryFirstOrDefault<Book>
+                (BookQueries.GetBookByTitle, new { title });
+
+            return bookByTitle;
+        }
+
         public Book CreateBook(Book book)
         {
             var insertedId = _db.Connection.QueryFirst<int>
@@ -35,6 +43,14 @@ namespace BookStoreAPI.Repositories.Repositories
                 ( BookQueries.GetBookById,new {id = insertedId });
             
             return newBook;
+        }
+
+        public Book UpdateBook(string title, string newTitle, int newAuthorId, decimal newPrice)
+        {
+            var updatedBook = _db.Connection.QueryFirstOrDefault<Book>(BookQueries.UpdateBook,
+                new {title, newTitle, newAuthorId, newPrice});
+
+            return updatedBook;
         }
 
         public Book DeleteBook(Book book)
@@ -61,14 +77,6 @@ namespace BookStoreAPI.Repositories.Repositories
                     throw;
                 }
             }
-        }
-
-        public Book GetBookByTitle(string title)
-        {
-            var bookByTitle = _db.Connection.QueryFirstOrDefault<Book>
-            (BookQueries.GetBookByTitle, new {title});
-
-            return bookByTitle;
         }
     }
 }
