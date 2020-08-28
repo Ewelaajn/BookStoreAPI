@@ -4,10 +4,10 @@ using System.Text;
 
 namespace BookStoreAPI.Services.ModelsDto
 {
-    public class BookDto
+    public class UpdateAuthorDto
     {
-        public string Title { get; set; }
         public AuthorDto AuthorDto { get; set; }
-        public decimal Price { get; set; }
+        public string NewFirstName { get; set; }
+        public string NewLastName { get; set; }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using BookStoreAPI.Services.Models_DTO;
+using BookStoreAPI.Services.ModelsDto;
 
 namespace BookStoreAPI.Services.Interfaces
 {
@@ -10,5 +10,7 @@ namespace BookStoreAPI.Services.Interfaces
         IEnumerable<BookDto> GetAllBooks();
 
         BookDto CreateBook(BookDto bookDto);
+        BookDto UpdateBook(UpdateBookDto updateBookDto);
+        BookDto DeleteBook(string title);
     }
 }

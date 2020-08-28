@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using BookStoreAPI.Repositories.Models;
 using BookStoreAPI.Services.Mappings.Interfaces;
-using BookStoreAPI.Services.Models_DTO;
+using BookStoreAPI.Services.ModelsDto;
 
 
 namespace BookStoreAPI.Services.Mappings
@@ -26,7 +26,7 @@ namespace BookStoreAPI.Services.Mappings
             return new BookDto
             {
                 Title = book.Title,
-                Author = new AuthorDto
+                AuthorDto = new AuthorDto
                 {
                     FirstName = author.FirstName,
                     LastName = author.LastName
