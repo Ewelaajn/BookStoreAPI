@@ -33,5 +33,6 @@ namespace BookStoreApi.Tests
         public string Username { get; set; }
         public string  Password { get; set; }
         public string DbupFolderName { get; set; }
+        public string TestQueriesFileLocation { get; set; }
     }
 }

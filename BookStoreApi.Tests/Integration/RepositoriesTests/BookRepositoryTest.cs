@@ -1,50 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using BookStoreAPI.Repositories.DbConnection;
+using System.Linq;
+using System.Reflection;
+using Autofac;
 using BookStoreAPI.Repositories.Interfaces;
-using BookStoreAPI.Repositories.Repositories;
-using BookStoreApi.Tests.Integration.DbManager;
-using BookStoreApi.Tests.Integration.DbTools;
+using BookStoreAPI.Repositories.Models;
 using Dapper;
 using FluentAssertions;
+using Microsoft.VisualBasic.FileIO;
+using Npgsql;
 using NUnit.Framework;
 
 namespace BookStoreApi.Tests.Integration.RepositoriesTests
 {
     [TestFixture]
-    public class BookRepositoryTest
+    public class BookRepositoryTest : RepositoryTest
     {
-        private readonly IBookRepository _bookRepository;
-        private readonly IDb _db;
-        private readonly DbManager.PostgresManager _postgresManager;
-        public BookRepositoryTest()
+        [SetUp]
+        public void SetUp()
         {
-            _db = new TestDb();
-            _bookRepository = new BookRepository(_db);
-            _postgresManager = new PostgresManager();
+            BookRepository = Container.Resolve<IBookRepository>();
         }
-
-
-        [OneTimeSetUp]
-        public void OneTimeSetUp()
-        {
-            _postgresManager.SetUpSchema();
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            _postgresManager.ResetSchema();
-        }
-
+        
         // testedMethodName_testCase_expectedResult 
         [Test]
         public void DbConnection_WorksCorrectly_ReturnsData()
         {
             var query = @"SELECT 1";
 
-            int result = _db.Connection.QueryFirst<int>(query);
+            int result = Db.Connection.QueryFirst<int>(query);
 
             int expectedResult = 1;
 
@@ -55,5 +39,132 @@ namespace BookStoreApi.Tests.Integration.RepositoriesTests
             result.Should().Be(expectedResult);
 
         }
+
+        [Test]
+        public void GetAllBooks_ThereAreBooksInDataBase_ReturnsAllBooks()
+        {
+            var expectedResult = AllBooks;
+            var result = BookRepository.GetAllBooks();
+
+            result.Should().BeEquivalentTo(expectedResult);
+        }
+
+        [Test]
+        public void GetAllBooks_ThereAreNoBooks_ReturnsEmptyCollection()
+        {
+            string deleteAllBooksQuery = @"
+            DELETE FROM shop.order_book;
+            DELETE FROM shop.book;";
+            
+            Db.Connection.Execute(deleteAllBooksQuery);
+
+            var result = BookRepository.GetAllBooks();
+
+            result.Should().BeEmpty();
+        }
+
+        [Test]
+        [TestCase("IT")]
+        public void GetBookByTitle_TitleOfBookExists_ReturnsBook(string title)
+        {
+            var expectedResult = AllBooks.Single(book => book.Title.Equals(title));
+            var result = BookRepository.GetBookByTitle(title);
+
+            result.Should().BeEquivalentTo(expectedResult);
+        }
+
+        [Test]
+        [TestCase("Test title that is not in database")]
+        [TestCase("")]
+        [TestCase(null)]
+        public void GetBookByTitle_TitleOfBookDoesNotExists_ReturnsNull(string title)
+        {
+            var result = BookRepository.GetBookByTitle(title);
+
+            result.Should().BeNull();
+        }
+
+        [Test]
+        [TestCase("NewTitle", 1, 30)]
+        public void CreateBook_ValidBookSuppliedAsParameter_CreatesAndReturnsNewBook
+            (string title, int authorId, decimal price)
+        {
+            Book validInput = new Book
+            {
+                Title = title,
+                AuthorId = authorId,
+                Price = price
+            };
+
+            int highestCurrentBookId = AllBooks.Max(book => book.Id);
+
+            var expectedResult = new Book
+            {
+                Title = title,
+                AuthorId = authorId,
+                Price = price,
+                Id = highestCurrentBookId + 1
+            };
+
+            var result = BookRepository.CreateBook(validInput);
+
+            result.Should().BeEquivalentTo(expectedResult);
+        }
+
+        [Test]
+        [TestCase("IT", 1, 10)]
+        // PostgresCode23505 unique constraint valuation
+        public void CreateBook_TitleAlreadyExistsInDatabase_PostgresExceptionCode23505(string title, int authorId, decimal price)
+        {
+            var invalidBook = new Book
+            {
+                Title = title,
+                AuthorId = authorId,
+                Price = price
+            };
+
+            FluentActions.Invoking(() => BookRepository.CreateBook(invalidBook))
+                .Should().Throw<Npgsql.PostgresException>()
+                .Where(exception => int.Parse(exception.SqlState) == 23505);
+        }
+
+        private List<Book> AllBooks => new List<Book>
+        {
+            new Book
+            {
+                Id = 1,
+                AuthorId = 1,
+                Title = "Romeo and Juliet",
+                Price = 30.00m
+            },
+            new Book
+            {
+                Id = 2,
+                AuthorId = 2,
+                Title = "Murder on the Orient Express",
+                Price = 25.00m
+            },
+            new Book
+            {
+                Id = 3,
+                AuthorId = 3,
+                Title = "Flatland",
+                Price = 35.00m
+            },
+            new Book
+            {
+                Id = 4,
+                AuthorId = 4,
+                Title = "The Cossacks",
+                Price = 28.00m
+            },
+            new Book
+            {
+                Id = 5,
+                AuthorId = 5,
+                Title = "IT",
+                Price = 32.00m
+            }
+        };
     }
 }

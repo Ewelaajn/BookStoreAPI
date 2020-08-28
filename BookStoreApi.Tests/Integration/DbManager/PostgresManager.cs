@@ -6,6 +6,7 @@ using System.Linq;
 using BookStoreAPI.Repositories.Db;
 using Dapper;
 using Npgsql;
+using NUnit.Framework.Internal;
 
 namespace BookStoreApi.Tests.Integration.DbManager
 {
@@ -88,24 +89,27 @@ namespace BookStoreApi.Tests.Integration.DbManager
             using (var connection = new NpgsqlConnection(_testDatabaseConnectionString))
             {
                 connection.Execute(_schema);
+                FillDbWithTestData(connection);
             }
         }
 
         public void ResetSchema()
         {
-            if (String.IsNullOrEmpty(_schema))
+            if (string.IsNullOrEmpty(_schema))
                 BuildSchema();
 
             using (var connection = new NpgsqlConnection(_testDatabaseConnectionString))
             {
                 connection.Execute(PostgresManagerQueries.ResetSchema);
                 connection.Execute(_schema);
+                FillDbWithTestData(connection);
             }
         }
 
-        public void FillDbWithTestData()
+        private void FillDbWithTestData(NpgsqlConnection connection)
         {
-
+            string query = File.ReadAllText(Settings.DbManager.TestQueriesFileLocation);
+            connection.Execute(query);
         }
     }
 }

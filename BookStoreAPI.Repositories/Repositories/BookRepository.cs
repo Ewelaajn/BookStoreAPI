@@ -14,7 +14,7 @@ namespace BookStoreAPI.Repositories.Repositories
     public class BookRepository : IBookRepository
     {
         private readonly IDb _db;
-
+        // Constructor is a recipe for making a object instance
         public BookRepository(IDb db)
         {
             _db = db;

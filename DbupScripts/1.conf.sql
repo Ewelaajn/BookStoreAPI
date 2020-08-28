@@ -39,8 +39,3 @@ CREATE TABLE shop.order_book
 	order_id INTEGER REFERENCES shop.order(id),
 	book_id INTEGER REFERENCES shop.book(id)
 );
-
-
-
-
-
