@@ -1,0 +1,19 @@
+ALTER TABLE shop.book
+ALTER COLUMN author_id SET NOT NULL,
+ADD CONSTRAINT positive_price CHECK (price > 0);
+
+ALTER TABLE shop.author
+ALTER COLUMN first_name SET NOT NULL,
+ALTER COLUMN last_name SET NOT NULL;
+
+ALTER TABLE shop.order_book
+ALTER COLUMN order_id SET NOT NULL,
+ALTER COLUMN book_id SET NOT NULL;
+
+ALTER TABLE shop.shop_order
+ALTER COLUMN is_active SET NOT NULL,
+ALTER COLUMN order_time SET NOT NULL,
+ALTER COLUMN customer_id SET NOT NULL;
+
+ALTER TABLE shop.customer
+ALTER COLUMN mail SET NOT NULL;
