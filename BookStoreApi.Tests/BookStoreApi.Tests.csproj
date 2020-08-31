@@ -16,6 +16,8 @@
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
+    <None Include="../DbupScripts/*" CopyToOutputDirectory="Always" LinkBase="DbupScripts/" />
+    <None Include="TestQueries/*" CopyToOutputDirectory="Always" LinkBase="TestQueries/" />
   </ItemGroup>
 
   <ItemGroup>
