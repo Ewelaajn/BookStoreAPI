@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Text;
 using BookStoreAPI.Repositories.DbConnection;
 using BookStoreAPI.Repositories.Models;
 using BookStoreAPI.Repositories.Queries;
@@ -21,11 +20,11 @@ namespace BookStoreAPI.Repositories.Repositories
 
         public Author CreateAuthor(string firstName, string lastName)
         {
-            int id = _db.Connection.QueryFirst<int>
-                (AuthorQueries.CreateAuthor, new { first_name = firstName, last_name = lastName });
+            var id = _db.Connection.QueryFirst<int>
+                (AuthorQueries.CreateAuthor, new {first_name = firstName, last_name = lastName});
 
             var author = _db.Connection.QueryFirst<Author>
-                (AuthorQueries.GetAuthorById, new { id });
+                (AuthorQueries.GetAuthorById, new {id});
 
             return author;
         }
@@ -33,15 +32,15 @@ namespace BookStoreAPI.Repositories.Repositories
         public Author GetAuthor(string firstName, string lastName)
         {
             var author = _db.Connection.QueryFirstOrDefault<Author>
-            (AuthorQueries.GetAuthor, new { first_name = firstName, last_name = lastName });
-            
+                (AuthorQueries.GetAuthor, new {first_name = firstName, last_name = lastName});
+
             return author;
         }
 
         public Author GetAuthorById(int authorId)
         {
             var author = _db.Connection.QueryFirst<Author>
-            (AuthorQueries.GetAuthorById, new {id = authorId });
+                (AuthorQueries.GetAuthorById, new {id = authorId});
 
             return author;
         }
@@ -49,8 +48,8 @@ namespace BookStoreAPI.Repositories.Repositories
         public IEnumerable<Author> GetAuthorsByIds(List<int> ids)
         {
             var authors = _db.Connection.Query<Author>
-            (AuthorQueries.GetAuthorsByIds, new { ids }) ;
-           
+                (AuthorQueries.GetAuthorsByIds, new {ids});
+
             return authors;
         }
 
@@ -62,13 +61,14 @@ namespace BookStoreAPI.Repositories.Repositories
             return authors;
         }
 
-        public Author UpdateAuthor(string currentFirstName, string currentLastName, 
-                                   string newFirstName, string newLastName)
+        public Author UpdateAuthor(string currentFirstName, string currentLastName,
+            string newFirstName, string newLastName)
         {
             var connection = _db.Connection;
             connection.Open();
 
-            using(var transaction = connection.BeginTransaction(IsolationLevel.ReadUncommitted))
+            using (var transaction = connection.BeginTransaction(IsolationLevel.ReadUncommitted))
+            {
                 try
                 {
                     var updatedAuthor = _db.Connection.QueryFirstOrDefault<Author>
@@ -83,6 +83,7 @@ namespace BookStoreAPI.Repositories.Repositories
                     transaction.Rollback();
                     throw;
                 }
+            }
         }
 
         public Author DeleteAuthor(string firstName, string lastName)
@@ -94,18 +95,18 @@ namespace BookStoreAPI.Repositories.Repositories
             {
                 try
                 {
-                    Author author = _db.Connection.QueryFirstOrDefault<Author>
+                    var author = _db.Connection.QueryFirstOrDefault<Author>
                     (AuthorQueries.GetAuthor,
                         new {first_name = firstName, last_name = lastName}, transaction);
-                    
+
                     IEnumerable<Book> books = _db.Connection.Query<Book>
-                        (BookQueries.GetBookByAuthorId, 
+                    (BookQueries.GetBookByAuthorId,
                         new {author_id = author.Id}, transaction).ToList();
 
                     var booksIds = books.Select(bookId => bookId.Id).ToList();
 
                     _db.Connection.Execute
-                    (BookQueries.DeleteBooksFromOrdersByIds, 
+                    (BookQueries.DeleteBooksFromOrdersByIds,
                         new {book_id = booksIds}, transaction);
 
                     _db.Connection.Execute
@@ -121,10 +122,9 @@ namespace BookStoreAPI.Repositories.Repositories
                 catch (Exception ex)
                 {
                     transaction.Rollback();
-                    throw; 
+                    throw;
                 }
             }
-                
         }
     }
-}     
+}

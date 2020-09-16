@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BookStoreAPI.Repositories.Queries
+﻿namespace BookStoreAPI.Repositories.Queries
 {
     public static class BookQueries
     {
