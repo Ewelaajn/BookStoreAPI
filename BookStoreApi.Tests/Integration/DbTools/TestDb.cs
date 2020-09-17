@@ -1,4 +1,4 @@
-﻿using BookStoreAPI.Repositories.DbConnection;
+﻿using BookStoreAPI.Repositories.Db;
 using Npgsql;
 
 namespace BookStoreApi.Tests.Integration.DbTools

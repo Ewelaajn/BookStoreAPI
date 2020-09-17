@@ -1,5 +1,4 @@
 using BookStoreAPI.Repositories.Db;
-using BookStoreAPI.Repositories.DbConnection;
 using BookStoreAPI.Repositories.Interfaces;
 using BookStoreAPI.Repositories.Repositories;
 using BookStoreAPI.Repositories.Settings;
@@ -36,6 +35,8 @@ namespace BookStoreAPI.Api
             services.AddScoped<IBookMapper, BookMapper>();
             services.AddScoped<IAuthorRepository, AuthorRepository>();
             services.AddScoped<IAuthorService, AuthorService>();
+            services.AddScoped<ICustomerRepository, CustomerRepository>();
+            services.AddScoped<ICustomerService, CustomerService>();
 
             services.AddMvcCore(options => { options.EnableEndpointRouting = false; }).AddApiExplorer()
                 .AddControllersAsServices();

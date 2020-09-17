@@ -1,6 +1,6 @@
 ﻿using Npgsql;
 
-namespace BookStoreAPI.Repositories.DbConnection
+namespace BookStoreAPI.Repositories.Db
 {
     public interface IDb
     {

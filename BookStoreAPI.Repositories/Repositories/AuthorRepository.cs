@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using BookStoreAPI.Repositories.DbConnection;
+using BookStoreAPI.Repositories.Db;
+using BookStoreAPI.Repositories.Interfaces;
 using BookStoreAPI.Repositories.Models;
 using BookStoreAPI.Repositories.Queries;
 using Dapper;

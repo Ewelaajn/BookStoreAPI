@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using BookStoreAPI.Repositories.Interfaces;
 using BookStoreAPI.Services.Interfaces;
 using BookStoreAPI.Services.ModelsDto;
 

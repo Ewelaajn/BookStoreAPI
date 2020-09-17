@@ -1,4 +1,4 @@
-﻿namespace BookStoreApi.Tests.Integration
+﻿namespace BookStoreApi.Tests.Integration.DbManager
 {
     public class PostgresManagerQueries
     {

@@ -1,5 +1,5 @@
 ﻿using Autofac;
-using BookStoreAPI.Repositories.DbConnection;
+using BookStoreAPI.Repositories.Db;
 using BookStoreAPI.Repositories.Interfaces;
 using BookStoreAPI.Repositories.Repositories;
 using BookStoreApi.Tests.Integration.DbManager;

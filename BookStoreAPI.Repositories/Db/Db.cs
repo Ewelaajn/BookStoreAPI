@@ -1,5 +1,4 @@
-﻿using BookStoreAPI.Repositories.DbConnection;
-using BookStoreAPI.Repositories.Settings;
+﻿using BookStoreAPI.Repositories.Settings;
 using Microsoft.Extensions.Options;
 using Npgsql;
 

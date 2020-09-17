@@ -5,7 +5,7 @@ using BookStoreAPI.Services.Interfaces;
 using BookStoreAPI.Services.Mappings.Interfaces;
 using BookStoreAPI.Services.ModelsDto;
 
-namespace BookStoreAPI.Services
+namespace BookStoreAPI.Services.Services
 {
     public class BookService : IBookService
     {
