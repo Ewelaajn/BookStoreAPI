@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="$USER_HOME$/.cache/JetBrains/Rider2020.2/extResources" t="IncludeRecursive" />
+    <e p="$USER_HOME$/.cache/JetBrains/Rider2020.2/resharper-host/local/Transient/Rider/v202/SolutionCaches/_BookStoreAPI.Api.1754165656.00" t="ExcludeRecursive" />
+    <e p="$APPLICATION_CONFIG_DIR$/consoles/db" t="IncludeRecursive" />
+    <e p="$APPLICATION_CONFIG_DIR$/extensions" t="IncludeRecursive" />
+    <e p="$USER_HOME$/.nuget/packages/microsoft.net.test.sdk/16.4.0/build/netcoreapp2.1" t="Include">
+      <e p="Microsoft.NET.Test.Sdk.Program.cs" t="Include" />
+    </e>
+    <e p="$USER_HOME$/.nuget/packages/nunit3testadapter/3.15.1/build/netcoreapp2.0/NUnit3.TestAdapter.dll" t="Include" />
+    <e p="$USER_HOME$/.nuget/packages/nunit3testadapter/3.15.1/build/netcoreapp2.0/NUnit3.TestAdapter.pdb" t="Include" />
+    <e p="$USER_HOME$/.nuget/packages/nunit3testadapter/3.15.1/build/netcoreapp2.0/nunit.engine.api.dll" t="Include" />
+    <e p="$USER_HOME$/.nuget/packages/nunit3testadapter/3.15.1/build/netcoreapp2.0/nunit.engine.dll" t="Include" />
+    <e p="$PROJECT_DIR$" t="IncludeFlat">
+      <e p="BookStoreAPI.Api" t="IncludeRecursive">
+        <e p="ApiControllerBase.cs" t="Include" />
+        <e p="BookStoreAPI.Api.csproj" t="IncludeRecursive" />
+        <e p="Controllers" t="Include">
+          <e p="AuthorController.cs" t="Include" />
+          <e p="BookController.cs" t="Include" />
+        </e>
+        <e p="Program.cs" t="Include" />
+        <e p="Properties" t="Include">
+          <e p="launchSettings.json" t="Include" />
+        </e>
+        <e p="Startup.cs" t="Include" />
+        <e p="appsettings.json" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp3.1" t="Include">
+              <e p="BookStoreAPI.Api.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+      </e>
+      <e p="BookStoreAPI.Api.sln" t="IncludeFlat" />
+      <e p="BookStoreAPI.Repositories" t="IncludeRecursive">
+        <e p="BookStoreAPI.Repositories.csproj" t="IncludeRecursive" />
+        <e p="Db" t="Include">
+          <e p="Db.cs" t="Include" />
+          <e p="IDb.cs" t="Include" />
+          <e p="NpgqlConnection.cs" t="Include" />
+        </e>
+        <e p="Interfaces" t="Include">
+          <e p="IAuthorRepository.cs" t="Include" />
+          <e p="IBookRepository.cs" t="Include" />
+        </e>
+        <e p="Models" t="Include">
+          <e p="Author.cs" t="Include" />
+          <e p="Book.cs" t="Include" />
+          <e p="Customer.cs" t="Include" />
+          <e p="Order.cs" t="Include" />
+          <e p="OrderBook.cs" t="Include" />
+        </e>
+        <e p="Queries" t="Include">
+          <e p="AuthorQueries.cs" t="Include" />
+          <e p="BookQueries.cs" t="Include" />
+        </e>
+        <e p="Repositories" t="Include">
+          <e p="AuthorRepository.cs" t="Include" />
+          <e p="BookRepository.cs" t="Include" />
+        </e>
+        <e p="Settings" t="Include">
+          <e p="DbSettings.cs" t="Include" />
+        </e>
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netstandard2.0" t="Include">
+              <e p="BookStoreAPI.Repositories.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+      </e>
+      <e p="BookStoreAPI.Services" t="IncludeRecursive">
+        <e p="BookStoreAPI.Services.csproj" t="IncludeRecursive" />
+        <e p="Interfaces" t="Include">
+          <e p="IAuthorService.cs" t="Include" />
+          <e p="IBookService.cs" t="Include" />
+        </e>
+        <e p="Mappings" t="Include">
+          <e p="BookMapper.cs" t="Include" />
+          <e p="Interfaces" t="Include">
+            <e p="IBookMapper.cs" t="Include" />
+          </e>
+        </e>
+        <e p="ModelsDto" t="Include">
+          <e p="AuthorDto.cs" t="Include" />
+          <e p="BookDto.cs" t="Include" />
+          <e p="UpdateAuthorDto.cs" t="Include" />
+          <e p="UpdateBookDto.cs" t="Include" />
+        </e>
+        <e p="Services" t="Include">
+          <e p="AuthorService.cs" t="Include" />
+          <e p="BookService.cs" t="Include" />
+        </e>
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netstandard2.0" t="Include">
+              <e p="BookStoreAPI.Services.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+      </e>
+      <e p="BookStoreApi.Tests" t="IncludeRecursive">
+        <e p="BookStoreApi.Tests.csproj" t="IncludeRecursive" />
+        <e p="Integration" t="Include">
+          <e p="DbManager" t="Include">
+            <e p="PostgresManager.cs" t="Include" />
+            <e p="PostgresManagerQueries.cs" t="Include" />
+          </e>
+          <e p="DbTools" t="Include">
+            <e p="TestDb.cs" t="Include" />
+          </e>
+          <e p="RepositoriesTests" t="Include">
+            <e p="BookRepositoryTest.cs" t="Include" />
+            <e p="RepositoryTest.cs" t="Include" />
+          </e>
+          <e p="SetUpDatabase.cs" t="Include" />
+        </e>
+        <e p="TestQueries" t="Include">
+          <e p="TestQueries.sql" t="Include" />
+        </e>
+        <e p="TestSettings.cs" t="Include" />
+        <e p="appsettings.json" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp3.1" t="Include">
+              <e p="BookStoreApi.Tests.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+      </e>
+      <e p="DbupScripts" t="Include">
+        <e p="1.conf.sql" t="Include" />
+        <e p="2.conf.sql" t="Include" />
+        <e p="3.conf.sql" t="Include" />
+      </e>
+      <e p="packages" t="ExcludeRecursive" />
+    </e>
+  </component>
+</project>
