@@ -61,7 +61,9 @@ namespace BookStoreAPI.Api.Controllers
             var updatedBook = _bookService.UpdateBook(updateBookDto);
 
             if (updatedBook == null)
+            {
                 return NotFound("Book or Author with those credentials does not exists, please try again.");
+            }
 
             return Ok(updatedBook);
         }

@@ -1,22 +1,26 @@
-﻿using System.Collections.Generic;
+﻿
+using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using BookStoreAPI.Repositories.Db;
 using Dapper;
 using Npgsql;
+using NUnit.Framework.Internal;
 
 namespace BookStoreApi.Tests.Integration.DbManager
 {
     public class PostgresManager
     {
+        private TestSettings Settings { get; }
         private readonly string _baseConnectionString;
-        private readonly string _db;
-        private readonly string _host;
         private readonly string _postgresConnectionString;
-        private readonly string _pswd;
         private readonly string _testDatabaseConnectionString;
-        private readonly string _user;
         private string _schema;
-
+        private readonly string _host;
+        private readonly string _db;
+        private readonly string _user;
+        private readonly string _pswd; 
         public PostgresManager()
         {
             Settings = TestSettings.MapSettings();
@@ -29,22 +33,20 @@ namespace BookStoreApi.Tests.Integration.DbManager
             _baseConnectionString = $"Host={_host};Username={_user};Password={_pswd};";
             _postgresConnectionString = $"{_baseConnectionString};Database=postgres";
             _testDatabaseConnectionString = $"{_baseConnectionString};Database={_db}";
+
         }
-
-        private TestSettings Settings { get; }
-
         public void CreateTestDb()
         {
             using (var connection = new NpgsqlConnection(_postgresConnectionString))
             {
-                connection.Execute(PostgresManagerQueries.CreateDb,
-                    new
-                    {
-                        host = _host,
-                        database = _db,
-                        user = _user,
-                        password = _pswd
-                    });
+                connection.Execute(PostgresManagerQueries.CreateDb, 
+                                    new
+                                    {
+                                        @host = _host,
+                                        @database = _db,
+                                        @user = _user,
+                                        @password = _pswd
+                                    });
             }
         }
 
@@ -53,12 +55,12 @@ namespace BookStoreApi.Tests.Integration.DbManager
             using (var connection = new NpgsqlConnection(_postgresConnectionString))
             {
                 connection.Execute(PostgresManagerQueries.DropDb,
-                    new
-                    {
-                        database = _db,
-                        user = _user,
-                        password = _pswd
-                    });
+                                   new
+                                                                {
+                                                                    @database = _db,
+                                                                    @user = _user,
+                                                                    @password = _pswd
+                                                                });
             }
         }
 
@@ -72,7 +74,7 @@ namespace BookStoreApi.Tests.Integration.DbManager
 
             foreach (var fileName in fileNames)
             {
-                var content = File.ReadAllText(fileName);
+                string content = File.ReadAllText(fileName);
                 queries.Add(content);
             }
 
@@ -81,7 +83,7 @@ namespace BookStoreApi.Tests.Integration.DbManager
 
         public void SetUpSchema()
         {
-            if (string.IsNullOrEmpty(_schema))
+            if(string.IsNullOrEmpty(_schema))
                 BuildSchema();
 
             using (var connection = new NpgsqlConnection(_testDatabaseConnectionString))
@@ -106,7 +108,7 @@ namespace BookStoreApi.Tests.Integration.DbManager
 
         private void FillDbWithTestData(NpgsqlConnection connection)
         {
-            var query = File.ReadAllText(Settings.DbManager.TestQueriesFileLocation);
+            string query = File.ReadAllText(Settings.DbManager.TestQueriesFileLocation);
             connection.Execute(query);
         }
     }

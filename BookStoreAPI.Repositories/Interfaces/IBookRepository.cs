@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 using BookStoreAPI.Repositories.Models;
 
 namespace BookStoreAPI.Repositories.Interfaces
@@ -8,7 +10,7 @@ namespace BookStoreAPI.Repositories.Interfaces
         Book CreateBook(Book book);
         Book GetBookByTitle(string title);
         IEnumerable<Book> GetAllBooks();
-        Book UpdateBook(string currentTitle, string newTitle, int newAuthorId, decimal newPrice);
+        Book UpdateBook(string title, string newTitle, int newAuthorId, decimal newPrice);
         Book DeleteBook(Book book);
     }
 }

@@ -1,4 +1,8 @@
-﻿namespace BookStoreAPI.Services.ModelsDto
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace BookStoreAPI.Services.ModelsDto
 {
     public class BookDto
     {

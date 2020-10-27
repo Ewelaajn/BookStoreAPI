@@ -1,4 +1,8 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using Dapper;
+using Microsoft.Extensions.Configuration;
 
 namespace BookStoreApi.Tests
 {
@@ -27,7 +31,7 @@ namespace BookStoreApi.Tests
         public string DataBase { get; set; }
         public string Host { get; set; }
         public string Username { get; set; }
-        public string Password { get; set; }
+        public string  Password { get; set; }
         public string DbupFolderName { get; set; }
         public string TestQueriesFileLocation { get; set; }
     }

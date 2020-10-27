@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using BookStoreAPI.Repositories.Models;
 using BookStoreAPI.Services.ModelsDto;
 
 namespace BookStoreAPI.Services.Interfaces

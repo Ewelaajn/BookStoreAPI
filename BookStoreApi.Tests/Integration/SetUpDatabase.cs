@@ -1,4 +1,8 @@
-﻿using BookStoreApi.Tests.Integration.DbManager;
+﻿using System;
+using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using System.Text;
+using BookStoreApi.Tests.Integration.DbManager;
 using NUnit.Framework;
 
 namespace BookStoreApi.Tests.Integration
@@ -7,7 +11,6 @@ namespace BookStoreApi.Tests.Integration
     public class SetUpDatabase
     {
         private readonly PostgresManager _postgresManager;
-
         public SetUpDatabase()
         {
             _postgresManager = new PostgresManager();

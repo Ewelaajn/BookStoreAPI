@@ -1,4 +1,8 @@
-﻿namespace BookStoreAPI.Repositories.Models
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace BookStoreAPI.Repositories.Models
 {
     public class OrderBook
     {

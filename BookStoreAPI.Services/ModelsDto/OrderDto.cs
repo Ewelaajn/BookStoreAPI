@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace BookStoreAPI.Repositories.Models
+namespace BookStoreAPI.Services.ModelsDto
 {
-    public class Order
+    public class OrderDto
     {
-        public int Id { get; set; }
         public bool IsActive { get; set; }
         public DateTime OrderTime { get; set; }
         public int CustomerId { get; set; }
