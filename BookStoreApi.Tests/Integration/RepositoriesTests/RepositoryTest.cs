@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Autofac;
+﻿using Autofac;
 using BookStoreAPI.Repositories.DbConnection;
 using BookStoreAPI.Repositories.Interfaces;
 using BookStoreAPI.Repositories.Repositories;
@@ -14,6 +11,18 @@ namespace BookStoreApi.Tests.Integration.RepositoriesTests
     [TestFixture]
     public class RepositoryTest
     {
+        [OneTimeSetUp]
+        public void OneTimeSetUp()
+        {
+            _postgresManager.SetUpSchema();
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            _postgresManager.ResetSchema();
+        }
+
         protected IBookRepository BookRepository;
         protected readonly IDb Db;
         private readonly PostgresManager _postgresManager;
@@ -35,18 +44,6 @@ namespace BookStoreApi.Tests.Integration.RepositoriesTests
 
             Db = Container.Resolve<IDb>();
             _postgresManager = Container.Resolve<PostgresManager>();
-        }
-
-        [OneTimeSetUp]
-        public void OneTimeSetUp()
-        {
-            _postgresManager.SetUpSchema();
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            _postgresManager.ResetSchema();
         }
     }
 }

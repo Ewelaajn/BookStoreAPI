@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BookStoreApi.Tests.Integration
+﻿namespace BookStoreApi.Tests.Integration
 {
     public class PostgresManagerQueries
     {

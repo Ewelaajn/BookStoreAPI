@@ -29,5 +29,19 @@ namespace BookStoreAPI.Api.Controllers
 
             return NoContent();
         }
+
+        [HttpPost]
+        [ProducesResponseType(typeof(CustomerDto), StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult CreateCustomer(CustomerDto customer)
+        {
+            var newCustomer = _customerService.CreateCustomer(customer);
+
+            if (newCustomer == null)
+                return BadRequest("Customer with this mail is already in database!");
+
+            return Created("/", newCustomer);
+        }
+
     }
 }

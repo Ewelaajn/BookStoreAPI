@@ -36,6 +36,12 @@ namespace BookStoreAPI.Api
             services.AddScoped<IBookMapper, BookMapper>();
             services.AddScoped<IAuthorRepository, AuthorRepository>();
             services.AddScoped<IAuthorService, AuthorService>();
+            services.AddScoped<ICustomerRepository, CustomerRepository>();
+            services.AddScoped<ICustomerService, CustomerService>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<IOrderService, OrderService>();
+            services.AddScoped<IOrderBookRepository, OrderBookRepository>();
+            services.AddScoped<IOrderBookService, OrderBookService>();
 
             services.AddMvcCore(options => { options.EnableEndpointRouting = false; }).AddApiExplorer()
                 .AddControllersAsServices();

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BookStoreAPI.Repositories.Models
+﻿namespace BookStoreAPI.Repositories.Models
 {
     public class Author
     {

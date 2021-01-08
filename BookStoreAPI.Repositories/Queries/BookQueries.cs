@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BookStoreAPI.Repositories.Queries
+﻿namespace BookStoreAPI.Repositories.Queries
 {
     public static class BookQueries
     {
@@ -43,6 +39,14 @@ namespace BookStoreAPI.Repositories.Queries
                         author_id AS AuthorId, 
                         price AS Price 
                     FROM shop.book";
+
+        public const string GetBooksByIds = @"
+                    SELECT id AS Id,
+                       title AS Title,
+                       author_id AS AuthorId,
+                       price As Price
+                    FROM shop.book
+                    WHERE id = ANY(@ids)";
 
         public const string UpdateBook = @"
                 UPDATE shop.book

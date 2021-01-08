@@ -7,6 +7,7 @@ namespace BookStoreAPI.Repositories.Interfaces
     {
         Customer CreateCustomer(Customer customer);
         Customer GetCustomerByFullName(string firstName, string lastName);
+        Customer GetCustomerById(int id);
         IEnumerable<Customer> GetAllCustomers();
     }
 }
