@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using BookStoreAPI.Repositories.Db;
+using BookStoreAPI.Repositories.DbConnection;
 using BookStoreAPI.Repositories.Interfaces;
 using BookStoreAPI.Repositories.Models;
 using BookStoreAPI.Repositories.Queries;
@@ -12,23 +11,19 @@ namespace BookStoreAPI.Repositories.Repositories
     public class OrderBookRepository : IOrderBookRepository
 
     {
-    private readonly IDb _db;
+        private readonly IDb _db;
 
-    public OrderBookRepository(IDb db)
-    {
-        _db = db;
-    }
-
-        // public OrderBook CreateOrderBook(OrderBook orderBook)
-        // {
-        //     var insertedId = _db.Connection.Query<int>(OrderBookQueries.CreateOrderBook);
-        //
-        //     var newOrderBook = 
-        //     throw new NotImplementedException();
-        // }
-        public OrderBook CreateOrderBook(OrderBook orderBook)
+        public OrderBookRepository(IDb db)
         {
-            throw new NotImplementedException();
+            _db = db;
+        }
+
+        public IEnumerable<OrderBook> GetOrderedBooks()
+        {
+            var orderedBooks = _db.Connection.Query<OrderBook>(
+                OrderBookQueries.GetOrderedBooks);
+
+            return orderedBooks;
         }
     }
 }

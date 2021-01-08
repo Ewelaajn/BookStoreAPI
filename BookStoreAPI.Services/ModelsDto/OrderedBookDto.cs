@@ -4,9 +4,9 @@ using System.Text;
 
 namespace BookStoreAPI.Services.ModelsDto
 {
-    public class OrderBookDto
+    public class OrderedBookDto
     {
-        public int OrderId { get; set; }
-        public int BookId { get; set; }
+        public string Title { get; set; }
+        public AuthorDto AuthorDto { get; set; }
     }
 }

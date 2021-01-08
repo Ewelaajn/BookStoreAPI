@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using BookStoreAPI.Repositories.Models;
 using BookStoreAPI.Services.Mappings.Interfaces;
 using BookStoreAPI.Services.ModelsDto;
-
 
 namespace BookStoreAPI.Services.Mappings
 {
@@ -15,10 +12,9 @@ namespace BookStoreAPI.Services.Mappings
         {
             return books.Select(book =>
             {
-            Author bookAuthor = authors.First(author => author.Id == book.AuthorId);
-            return BookToDto(book, bookAuthor);
-            });  
-            
+                var bookAuthor = authors.First(author => author.Id == book.AuthorId);
+                return BookToDto(book, bookAuthor);
+            });
         }
 
         public BookDto BookToDto(Book book, Author author)
@@ -44,9 +40,5 @@ namespace BookStoreAPI.Services.Mappings
                 Price = bookDto.Price
             };
         }
-
-
     }
-
-
 }

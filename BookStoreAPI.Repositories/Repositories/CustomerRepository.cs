@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using BookStoreAPI.Repositories.Db;
+using BookStoreAPI.Repositories.DbConnection;
 using BookStoreAPI.Repositories.Interfaces;
 using BookStoreAPI.Repositories.Models;
 using BookStoreAPI.Repositories.Queries;
@@ -22,18 +21,41 @@ namespace BookStoreAPI.Repositories.Repositories
         {
             var resultConnectionCustomer = _db.Connection.Query<Customer>
                 (CustomerQueries.GetAllCustomers);
-            
+
             return resultConnectionCustomer;
         }
 
         public Customer GetCustomerByFullName(string firstName, string lastName)
         {
-            throw new NotImplementedException();
+            var customer = _db.Connection.QueryFirstOrDefault<Customer>(
+                CustomerQueries.GetCustomerByFullName, new {firstName, lastName});
+
+            return customer;
         }
 
         public Customer CreateCustomer(Customer customer)
         {
-            throw new NotImplementedException();
+            var id = _db.Connection.QueryFirst<int>(CustomerQueries.CreateCustomer, new
+            {
+                customer.FirstName,
+                customer.LastName,
+                customer.Mail,
+                customer.PhoneNumber,
+                customer.City
+            });
+
+            var newCustomer = _db.Connection.QueryFirstOrDefault<Customer>(
+                CustomerQueries.GetCustomerById, new {id});
+
+            return newCustomer;
+        }
+
+        public Customer GetCustomerById(int id)
+        {
+            var customer = _db.Connection.QueryFirstOrDefault<Customer>(
+                CustomerQueries.GetCustomerById, new {id});
+
+            return customer;
         }
     }
 }

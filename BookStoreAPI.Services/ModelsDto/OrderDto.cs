@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace BookStoreAPI.Services.ModelsDto
 {
@@ -8,6 +6,7 @@ namespace BookStoreAPI.Services.ModelsDto
     {
         public bool IsActive { get; set; }
         public DateTime OrderTime { get; set; }
-        public int CustomerId { get; set; }
+        public OrderedBookDto Book { get; set; }
+        public string Mail { get; set; }
     }
 }

@@ -1,12 +1,12 @@
-﻿using System;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Text;
 using BookStoreAPI.Repositories.Models;
 
 namespace BookStoreAPI.Repositories.Interfaces
 {
     public interface IOrderRepository
     {
-        Order CreateOrder(Order order);
+        Order CreateOrder(string title, string mail);
+        IEnumerable<Order> GetOrdersByIds(List<int> ids);
     }
 }

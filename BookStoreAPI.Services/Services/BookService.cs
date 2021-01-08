@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using BookStoreAPI.Repositories.Interfaces;
-using BookStoreAPI.Repositories.Models;
 using BookStoreAPI.Services.Interfaces;
 using BookStoreAPI.Services.Mappings.Interfaces;
 using BookStoreAPI.Services.ModelsDto;
@@ -11,28 +9,26 @@ namespace BookStoreAPI.Services
 {
     public class BookService : IBookService
     {
-        private readonly IBookRepository _bookRepository;
-        private readonly IBookMapper _bookMapper;
         private readonly IAuthorRepository _authorRepository;
+        private readonly IBookMapper _bookMapper;
+        private readonly IBookRepository _bookRepository;
+
         public BookService(IBookRepository bookRepository, IBookMapper bookMapper, IAuthorRepository authorRepository)
         {
             _bookRepository = bookRepository;
             _bookMapper = bookMapper;
             _authorRepository = authorRepository;
-            
         }
+
         public BookDto CreateBook(BookDto bookDto)
         {
-            AuthorDto authorDto = bookDto.AuthorDto;
-            Author author = _authorRepository.GetAuthor(authorDto.FirstName, authorDto.LastName);
+            var authorDto = bookDto.AuthorDto;
+            var author = _authorRepository.GetAuthor(authorDto.FirstName, authorDto.LastName);
 
-            if (author == null)
-            {
-                return null;
-            }
+            if (author == null) return null;
 
-            Book bookToCreate = _bookMapper.DtoToBook(bookDto, author.Id);
-            Book newBook = _bookRepository.CreateBook(bookToCreate);
+            var bookToCreate = _bookMapper.DtoToBook(bookDto, author.Id);
+            var newBook = _bookRepository.CreateBook(bookToCreate);
 
             return _bookMapper.BookToDto(newBook, author);
         }
@@ -52,10 +48,7 @@ namespace BookStoreAPI.Services
 
             var book = _bookRepository.GetBookByTitle(updateBookDto.CurrentTitle);
 
-            if (book == null || author == null)
-            {
-                return null;
-            }
+            if (book == null || author == null) return null;
 
             var updatedBook = _bookRepository.UpdateBook
                 (updateBookDto.CurrentTitle, updateBookDto.NewTitle, author.Id, updateBookDto.NewPrice);
@@ -65,15 +58,12 @@ namespace BookStoreAPI.Services
 
         public BookDto DeleteBook(string title)
         {
-            Book bookByTitleToDelete = _bookRepository.GetBookByTitle(title);
+            var bookByTitleToDelete = _bookRepository.GetBookByTitle(title);
 
-            if (bookByTitleToDelete == null)
-            {
-                return null;
-            }
+            if (bookByTitleToDelete == null) return null;
 
-            Author author = _authorRepository.GetAuthorById(bookByTitleToDelete.AuthorId);
-            Book deletedBook = _bookRepository.DeleteBook(bookByTitleToDelete);
+            var author = _authorRepository.GetAuthorById(bookByTitleToDelete.AuthorId);
+            var deletedBook = _bookRepository.DeleteBook(bookByTitleToDelete);
 
             return _bookMapper.BookToDto(deletedBook, author);
         }
